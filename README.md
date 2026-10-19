@@ -46,3 +46,21 @@ always the controller.
 Solidified 2026-10-18. All tests pass with nothing but the four bits ever
 calculated. See `EXPLANATION_RECORD.md` for the full record, kept in
 Christopher's words, and `tests/` for the verification suite.
+
+## Proven use: corruption-proof memory addressing
+
+16 entries addressed by 4-bit keys through the implication mapping, vs plain
+4-bit keys, same address corruption, 400 trials each:
+
+| Address corruption | Implication addressing | Plain 4-bit keys |
+|---|---|---|
+| 5% | 100% retrieved | 80% |
+| 10% | 100% | 67% |
+| 20% | 100% | 44% |
+| 30% | 100% | 25% |
+| 40% | 100% | 11% |
+| 45% | 100% | 7% |
+
+One flipped bit sends a raw key to the wrong entry; the implied address
+recovers by majority vote and doesn't miss once. See
+`tests/explore_memory_addressing.py`.
