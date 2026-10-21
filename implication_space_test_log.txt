@@ -1,0 +1,31 @@
+1. produced widths, layers 0-3 == canon: [4, 8, 128, 32768]; layers 4-5 from the equation: 2,147,483,648, 9,223,372,036,854,775,808
+2. produced space == chain construction, layers 1-3: 526,464 checks, 0 failures
+3. layers 4-5, produced vs window-recursive production: 12,800 bits in 400 windows, 0 failures
+
+4. THE PRODUCED SPACE (controller 0101):
+   layer 0: width                      4   ones                      2
+   layer 1: width                      8   ones                      4
+   layer 2: width                    128   ones                     64
+   layer 3: width                 32,768   ones                 16,384
+   layer 4: width          2,147,483,648   ones          1,073,741,824
+   layer 5: width 9,223,372,036,854,775,808   ones 4,611,686,018,427,387,904
+   layer 1 pattern: 00110011
+   layer 2 pattern (blocks of 16): 00000000000000000000000000000000111111111111111111111111111111110000000000000000000000000000000011111111111111111111111111111111
+   layer 5, a window deep in the space (positions 2^62 .. 2^62+32):
+     00000000000000000000000000000000
+   layer 5 position 4,611,686,018,427,400,249: bit = 0 (ancestors by layer 4..0: [1073741824, 16384, 64, 4, 2])
+
+RESULT: ALL PASS — the rule alone produces the space: correct at every established position, coherent through layer 5, nothing stored but the 4 bits.
+1. determinism (2,000 queries x 4 passes, shuffled): PASS
+2. direct == recursive production (layers 4-5): 1600 bits, PASS
+3. no materialization: peak-RSS growth over 20,000 deep queries = 0 KB (PASS)
+4. per-query cost by layer (ns): L1=482, L2=794, L3=1174, L4=1917, L5=2859
+5. all 16 spaces distinct, layers 1-5 (pairwise probes): PASS
+6. Boolean functions of implied bits across layers (3,000 random 3-input functions): PASS
+7. controller recovery from corrupted layer-3 samples (2,000 sampled bits, majority vote per quarter):
+     corruption  5%: recovered 200/200 controllers exactly
+     corruption 20%: recovered 200/200 controllers exactly
+     corruption 35%: recovered 200/200 controllers exactly
+     corruption 45%: recovered 191/200 controllers exactly
+
+RESULT: ALL PASS — the produced implication space holds every property the project has claimed for it.

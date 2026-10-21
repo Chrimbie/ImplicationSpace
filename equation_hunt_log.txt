@@ -1,0 +1,86 @@
+========================================================================
+PART 1 — the quarter equation vs the solidified canon
+========================================================================
+  0001 -> 00000011  (record: 00000011)  OK
+  0101 -> 00110011  (record: 00110011)  OK
+  1010 -> 11001100  (record: 11001100)  OK
+  0010 -> 00001100  (record: 00001100)  OK
+his four examples: PASS
+exhaustive vs chain construction: 526,464 checks, 0 mismatches -> PASS
+K-th ordering (monotonic correspondence) at all widths: PASS
+ladder widths (incl. W = 4*2^40) spot checks vs recursive provenance: PASS
+
+NOTE: the equation COMMITS where the canon leaves open — it gives
+the same quarter law at every width, including unestablished
+ones. Equivalence is proven only on the established widths;
+the extension is the equation's own claim, not the record's.
+
+========================================================================
+PART 2 — UCE: candidates against the canon, role by role
+========================================================================
+
+Comparing canon and quarter_equation (Structure: implication_equation)
+
+SAME:
+  marking: the chosen combination fans out: every bit becomes a block
+  ordering: combination order corresponds to pattern order
+  locus: only the four bits are ever calculated
+
+DIFFERENT:
+  recursion:
+    canon: same rule at every layer, turtles all the way up
+    quarter_equation: one closed form for all layers; the recursion is collapsed into it
+  beyond_established:
+    canon: implied, not specified
+    quarter_equation: commits: the same quarter law at every width, established or not
+
+Comparing canon and identity_embedding (Structure: implication_equation)
+
+SAME:
+  locus: only the four bits are ever calculated
+  recursion: same rule at every layer, turtles all the way up
+  beyond_established: implied, not specified
+
+DIFFERENT:
+  marking:
+    canon: the chosen combination fans out: every bit becomes a block
+    identity_embedding: the value itself, zero-extended: 0001 -> 00000001
+  ordering:
+    canon: combination order corresponds to pattern order
+    identity_embedding: counting-order identity: the k-th combination IS the k-th pattern
+
+Comparing canon and tile_alternate (Structure: implication_equation)
+
+SAME:
+  locus: only the four bits are ever calculated
+  recursion: same rule at every layer, turtles all the way up
+
+DIFFERENT:
+  marking:
+    canon: the chosen combination fans out: every bit becomes a block
+    tile_alternate: previous layer tiled across the next, alternate tiles flipped
+  ordering:
+    canon: combination order corresponds to pattern order
+    tile_alternate: not established
+  beyond_established:
+    canon: implied, not specified
+    tile_alternate: not established
+
+Comparing canon and chatgpt_formula (Structure: implication_equation)
+
+DIFFERENT:
+  marking:
+    canon: the chosen combination fans out: every bit becomes a block
+    chatgpt_formula: not the fan rule: a formula-first account
+  ordering:
+    canon: combination order corresponds to pattern order
+    chatgpt_formula: dropped: no K-th ordering in the account
+  locus:
+    canon: only the four bits are ever calculated
+    chatgpt_formula: unknown
+  recursion:
+    canon: same rule at every layer, turtles all the way up
+    chatgpt_formula: next width = 2^current / 2
+  beyond_established:
+    canon: implied, not specified
+    chatgpt_formula: commits: the fourth width is 2^127 (rejected on record: 'it's supposed to be the 32,768')

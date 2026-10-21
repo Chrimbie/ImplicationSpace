@@ -1,0 +1,66 @@
+PER-LAYER NUMBERS
+layer width W   W=2^e  fan r   copies/real  blocks  block size possible patterns realized
+0     4         2      -       1            4       -          2^4               16
+1     8         3      2       2            4       2          2^8               16
+2     128       7      16      32           8       16         2^128             16
+3     32768     15     256     8192         128     256        2^32768           16
+
+SEQUENCES (layer 0 -> 3)
+  widths:            4, 8, 128, 32768
+  exponents e (2^e): 2, 3, 7, 15
+  exponent jumps:    -, 1, 4, 8
+  fan factors r:     -, 2, 16, 256   (= 2^1, 2^4, 2^8)
+  copies per real:   1, 2, 32, 8192  (= 2^0, 2^1, 2^5, 2^13)
+  block sizes:       -, 2, 16, 256   (one block per bit of the layer above)
+
+LAYER 1 — all 16 patterns (width 8)
+  0000 (K= 1) -> 00000000   ones=0
+  0001 (K= 2) -> 00000011   ones=2
+  0010 (K= 3) -> 00001100   ones=2
+  0011 (K= 4) -> 00001111   ones=4
+  0100 (K= 5) -> 00110000   ones=2
+  0101 (K= 6) -> 00110011   ones=4
+  0110 (K= 7) -> 00111100   ones=4
+  0111 (K= 8) -> 00111111   ones=6
+  1000 (K= 9) -> 11000000   ones=2
+  1001 (K=10) -> 11000011   ones=4
+  1010 (K=11) -> 11001100   ones=4
+  1011 (K=12) -> 11001111   ones=6
+  1100 (K=13) -> 11110000   ones=4
+  1101 (K=14) -> 11110011   ones=6
+  1110 (K=15) -> 11111100   ones=6
+  1111 (K=16) -> 11111111   ones=8
+
+ONES COUNT per controller, by layer (law: popcount(v) x W/4)
+  v     pop  L0   L1   L2    L3
+  0000  0    0    0    0     0
+  0001  1    1    2    32    8192
+  0010  1    1    2    32    8192
+  0011  2    2    4    64    16384
+  0100  1    1    2    32    8192
+  0101  2    2    4    64    16384
+  0110  2    2    4    64    16384
+  0111  3    3    6    96    24576
+  1000  1    1    2    32    8192
+  1001  2    2    4    64    16384
+  1010  2    2    4    64    16384
+  1011  3    3    6    96    24576
+  1100  2    2    4    64    16384
+  1101  3    3    6    96    24576
+  1110  3    3    6    96    24576
+  1111  4    4    8    128   32768
+
+DISTANCES between the 16 patterns, by layer
+  layer 1: min=2  max=8  (min = W/4 = 2)
+  layer 2: min=32  max=128  (min = W/4 = 32)
+  layer 3: min=8192  max=32768  (min = W/4 = 8192)
+
+LAYER 2 structure (width 128 = 8 blocks of 16, block = the layer-1 bit repeated)
+  0001: blocks = 00000011 (each shown bit = a block of 16 identical bits)
+  0101: blocks = 00110011 (each shown bit = a block of 16 identical bits)
+  1010: blocks = 11001100 (each shown bit = a block of 16 identical bits)
+  1111: blocks = 11111111 (each shown bit = a block of 16 identical bits)
+
+LAYER 3 structure (width 32768 = 128 blocks of 256)
+  block pattern = the controller's layer-2 pattern; each of its 128 bits is a block of 256 identical bits.
+  total bits across all 16 layer-3 patterns: 524,288

@@ -1,0 +1,8 @@
+layers 1-3 exhaustive (chain == materialized): 526,464 checks, 0 failures
+layers 4-5 sampled (recursive == quarter form): 1,601,920 checks, 0 failures so far
+ones law ones(v, n) = popcount(v) x W(n)/4, layers 0-5: PASS
+min-distance law = W(n)/4 (follows from ones law applied to single-bit differences): holds by the same aggregation
+widths from his equation: [4, 8, 128, 32768, 2147483648, 9223372036854775808]
+fan factors: [2, 16, 256, 65536, 4294967296]
+
+RESULT: ALL PASS — the expansion (fan-out + his growth equation) is coherent from the 4 real bits through layer 5 (W = 2^63 positions), every check answered on demand.

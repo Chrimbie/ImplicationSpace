@@ -1,0 +1,112 @@
+======================================================================
+STRUCTURE 1: bit_supply -- the concept behind 'infinite bits'
+======================================================================
+Comparing implied_bits and pi_digits (Structure: bit_supply)
+
+DIFFERENT:
+  origin:
+    implied_bits: finite: real bits + a fixed rule
+    pi_digits: finite: the definition of pi
+  stored:
+    implied_bits: only the real bits
+    pi_digits: nothing (the definition only)
+  access:
+    implied_bits: any bit derived on demand, instantly
+    pi_digits: any digit computed on demand
+  freedom:
+    implied_bits: none: every bit fixed by the origin
+    pi_digits: none: every digit fixed by the origin
+Comparing implied_bits and ram_bits (Structure: bit_supply)
+
+DIFFERENT:
+  origin:
+    implied_bits: finite: real bits + a fixed rule
+    ram_bits: whatever was written, bit by bit
+  stored:
+    implied_bits: only the real bits
+    ram_bits: every bit
+  access:
+    implied_bits: any bit derived on demand, instantly
+    ram_bits: read where it sits
+  freedom:
+    implied_bits: none: every bit fixed by the origin
+    ram_bits: full: each bit set independently
+Comparing implied_bits and coin_bits (Structure: bit_supply)
+
+DIFFERENT:
+  origin:
+    implied_bits: finite: real bits + a fixed rule
+    coin_bits: none: no rule, no definition
+  stored:
+    implied_bits: only the real bits
+    coin_bits: nothing until flipped
+  access:
+    implied_bits: any bit derived on demand, instantly
+    coin_bits: only by generating (flipping)
+  freedom:
+    implied_bits: none: every bit fixed by the origin
+    coin_bits: full: each bit independent of all others
+
+======================================================================
+STRUCTURE 2: model_size -- the concept behind 'size of the model'
+======================================================================
+Comparing llm_70b and enormous_in_space (Structure: model_size)
+
+DIFFERENT:
+  count:
+    llm_70b: 70 billion parameters
+    enormous_in_space: 10^41 nominal parameters
+  stored:
+    llm_70b: 70 billion values
+    enormous_in_space: 1,056 values
+  learned:
+    llm_70b: 70 billion independent values
+    enormous_in_space: 1,056 independent values
+  capability:
+    llm_70b: high: fluent language
+    enormous_in_space: seed-level: 93% on cancer
+Comparing enormous_in_space and text_10_80 (Structure: model_size)
+
+DIFFERENT:
+  count:
+    enormous_in_space: 10^41 nominal parameters
+    text_10_80: 10^80 nominal parameters
+  stored:
+    enormous_in_space: 1,056 values
+    text_10_80: 35,328 values
+  learned:
+    enormous_in_space: 1,056 independent values
+    text_10_80: 35,328 independent values
+  capability:
+    enormous_in_space: seed-level: 93% on cancer
+    text_10_80: 20% ceiling on dialogue
+Comparing text_10_80 and bigram_table (Structure: model_size)
+
+DIFFERENT:
+  count:
+    text_10_80: 10^80 nominal parameters
+    bigram_table: about a million counted pairs
+  stored:
+    text_10_80: 35,328 values
+    bigram_table: the counted pairs
+  learned:
+    text_10_80: 35,328 independent values
+    bigram_table: the counted pairs
+  capability:
+    text_10_80: 20% ceiling on dialogue
+    bigram_table: 20.4% on the same dialogue
+Comparing llm_70b and random_weights (Structure: model_size)
+
+DIFFERENT:
+  count:
+    llm_70b: 70 billion parameters
+    random_weights: 10^12 random parameters
+  stored:
+    llm_70b: 70 billion values
+    random_weights: 10^12 values
+  learned:
+    llm_70b: 70 billion independent values
+    random_weights: none: never trained
+  capability:
+    llm_70b: high: fluent language
+    random_weights: chance level
