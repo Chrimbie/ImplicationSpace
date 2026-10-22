@@ -1,0 +1,13 @@
+CPU: 2 logical cores | GPU partition: 1 core(s) [1] (50%)
+canvas 32768x32768 = 4,294,967,296 logical bytes
+serial (1 core): 19.2s, 10,235 rows
+(serial store removed - phone-lean mode)
+partition (1 cores): 11.9s, 5,209 rows, 71 tiles over 3 region(s)
+  worker pid 6209: 71 tiles, affinity [1], pin_ok True
+speedup: 1.62x on 50% of the CPU
+window @(2900, 3100): serial==analytic True, partition==analytic True, partition==serial True -> PASS
+window @(29300, 29700): serial==analytic True, partition==analytic True, partition==serial True -> PASS
+window @(20000, 20000): serial==analytic True, partition==analytic True, partition==serial True -> PASS
+presented frames identical: True (sha256 2ccc262170672b8c...)
+{"total_cores": 2, "partition_cores": 1, "serial_s": 19.21, "partition_s": 11.89, "speedup": 1.62, "identical": true}
+GPU PARTITION TEST: ALL PASS

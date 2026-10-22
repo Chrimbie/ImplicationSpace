@@ -1,0 +1,19 @@
+--- regression: s=4 vs BitMultiplier (canon)
+  s=4 widths + patterns == canon: PASS
+--- seed width s = 4: widths [4, 8, 128, 32768]
+  chain == closed form: 526,528 checks PASS
+  ones law popcount x W/s at W=32,768: PASS
+  distinct patterns at W=32,768: 16 of 16 seeds
+  patterns that vary across positions: 14 of 16
+--- seed width s = 2: widths [2, 2, 8, 128, 32768]
+  chain == closed form: 131,632 checks PASS
+  ones law popcount x W/s at W=32,768: PASS
+  distinct patterns at W=32,768: 4 of 4 seeds
+  patterns that vary across positions: 2 of 4
+--- seed width s = 1: widths [1, 1, 2, 8, 128, 32768]
+  chain == closed form: 65,816 checks PASS
+  ones law popcount x W/s at W=32,768: PASS
+  distinct patterns at W=32,768: 2 of 2 seeds
+  patterns that vary across positions: 0 of 2
+
+Widths from a single generating bit (s=1): 1, 1, 2, 8, 128, 32768, 2^31, ... - the equation's ladder, reached from g=1 (first fan factor is 1: the seed implies a layer of its own width).
