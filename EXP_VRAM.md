@@ -63,6 +63,17 @@ same in every process that opens the space.
   (8,589,895,108.351080 vs .351094); the full tensor streamed
   through the card in 16.6 s with physical VRAM peaking at
   **2,597 MiB**.
+- **A 1.07-billion-parameter model held in EXP-VRAM and run
+  through the device layer** (`exp_torch_demo.py`, log in
+  `exp_torch_demo_log.txt`): W1 is 32768×32768 — 4.29 GB of
+  weights held in the space at **0 bytes stored**. A forward
+  pass written as ordinary torch code,
+  `relu(x @ W1) @ W2`, matches a plain-torch reference
+  (max |diff| 0.00110); real torch data multiplied through
+  the device matches torch itself (0.000114). Program
+  totals: 4.43 GB allocated in EXP-VRAM, 134.2 MB stored,
+  physical VRAM 2,524 MiB. The forward pass took 787 s —
+  correct, not fast; the tiling path is the slow part.
 
 ## Also in this snapshot
 
@@ -73,12 +84,10 @@ same in every process that opens the space.
   `earth_mask.npz` is binary and cannot ride this snapshot
   route; the script regenerates expectations from the mask
   file kept beside it.)
-- **`tensor_demo.py` Acts 2–3 and `exp_torch_demo.py`** —
-  an 8192×8192 implied matmul, scattered-write persistence,
-  and a 1.07-billion-parameter model held in EXP-VRAM
-  (4.29 GB logical, 0 bytes stored) running a forward pass
-  through the device layer. **In flight at the time of this
-  commit**; results land in their logs, not in this file.
+- **`tensor_demo.py` Acts 2–3** — an 8192×8192 implied
+  matmul and scattered-write persistence. **In flight at
+  the time of this commit**; results land in their logs,
+  not in this file.
 
 ## The boundary, stated once
 

@@ -1,0 +1,9 @@
+ACT 1 ù a 1.07B-parameter model held in EXP-VRAM
+  W1: shape (32768, 32768) logical 4.29 GB stored 0.00 MB
+  W2: shape (32768, 16) logical 0.00 GB stored 0.00 MB
+  x: shape (512, 32768) logical 0.07 GB stored 67.11 MB
+  forward through EXP-VRAM in 787.3s | VRAM now: 2524 MiB
+  y vs plain-torch reference: max |diff| 0.00110  MATCH
+ACT 2 ù real torch data through the device
+  4096x4096 @ 4096x1: max |diff| vs torch 0.000114  MATCH
+RECEIPT: program allocated 4.43 GB in EXP-VRAM | stored 134.2 MB | acts 1 MATCH / 2 MATCH | the program ran on EXP-VRAM as its hardware
