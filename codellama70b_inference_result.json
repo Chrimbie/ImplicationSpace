@@ -1,0 +1,16 @@
+{
+  "prompt": "hello",
+  "generated_token_ids": [
+    29892,
+    474,
+    29915,
+    29885,
+    263,
+    29871
+  ],
+  "generated_text_after_hello": ", i'm a ",
+  "full_text": "hello, i'm a ",
+  "seconds_total": 3889.6548652648926,
+  "weight_bytes_served": 309793107968,
+  "backing": "EXP-VRAM BlockStore only"
+}

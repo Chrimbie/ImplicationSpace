@@ -1,0 +1,33 @@
+﻿Q6_K tensor: ['output.weight']
+prompt tokens: [1, 12199] ('hello' = 12199)
+  prefill pos 0 in 484.7s -> next 396 'Γûü#'
+  prefill pos 1 in 968.7s -> next 29892 ','
+  token 1: 29892 ',' | cum 968.7s
+    (step took 485.4s)
+  token 2: 474 'Γûüi' | cum 1454.1s
+    (step took 485.3s)
+  token 3: 29915 "'" | cum 1939.4s
+    (step took 486.6s)
+  token 4: 29885 'm' | cum 2426.0s
+    (step took 487.2s)
+  token 5: 263 'Γûüa' | cum 2913.1s
+    (step took 494.6s)
+  token 6: 29871 'Γûü' | cum 3407.8s
+    (step took 481.9s)
+{
+  "prompt": "hello",
+  "generated_token_ids": [
+    29892,
+    474,
+    29915,
+    29885,
+    263,
+    29871
+  ],
+  "generated_text_after_hello": ", i'm a ",
+  "full_text": "hello, i'm a ",
+  "seconds_total": 3889.6548652648926,
+  "weight_bytes_served": 309793107968,
+  "backing": "EXP-VRAM BlockStore only"
+}
+GENERATED: "hello, i'm a "

@@ -1,0 +1,27 @@
+﻿Q6_K tensor: ['output.weight']
+prompt tokens: [1, 12199] ('hello' = 12199)
+  prefill pos 0 in 501.7s -> next 703 '("'
+  prefill pos 1 in 999.7s -> next 29875 'i'
+  token 1: 29875 'i' | cum 999.7s
+    (step took 484.0s)
+  token 2: 29875 'i' | cum 1483.6s
+    (step took 477.6s)
+  token 3: 29875 'i' | cum 1961.2s
+    (step took 588.5s)
+  token 4: 29900 '0' | cum 2549.7s
+    (step took 634.7s)
+  token 5: 29875 'i' | cum 3184.4s
+    (step took 635.2s)
+  token 6: 29899 '-' | cum 3819.6s
+    (step took 634.9s)
+  token 7: 29899 '-' | cum 4454.5s
+    (step took 629.3s)
+  token 8: 29899 '-' | cum 5083.7s
+    (step took 626.7s)
+  token 9: 29899 '-' | cum 5710.5s
+    (step took 635.1s)
+  token 10: 29892 ',' | cum 6345.6s
+    (step took 630.5s)
+  token 11: 29897 ')' | cum 6976.1s
+    (step took 628.9s)
+  token 12: 29892 ',' | cum 7605.0s

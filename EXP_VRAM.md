@@ -144,3 +144,38 @@ be: unmodified Windows programs cannot yet allocate from it
 directly. What is proven above is the memory model itself —
 sparse, addressed, shared between processes, larger than the
 hardware, and exact.
+
+## Full inference from inside the space — VERIFIED (Oct 22)
+
+`run_inference_from_space.py` runs a complete 80-block greedy
+forward pass (RoPE, GQA KV cache) with **every weight read from
+the BlockStore** — the original GGUF is never opened by the
+inference path.
+
+- Prompt "hello" (BOS + token 12199), 6 tokens generated:
+  **", i'm a "** — token IDs 29892, 474, 29915, 29885, 263,
+  29871, an exact token-for-token match with the reference
+  model's greedy continuation (Ollama, temp 0:
+  ", i'm a 20 year old student from the uk...").
+- 309,793,107,968 weight bytes served from the store across
+  8 forward passes; 3,890 s total (~8 min/token — this harness
+  is a correctness proof, not a speed claim; the reference
+  engine does 0.68 s/token).
+
+### The road here (kept on record)
+
+The first inference run produced incoherent tokens
+("helloiii0i----,)"). Bisection, in order: both dequantizers
+proven bit-identical to the reference library (`probe_q40.py`,
+`probe_q6k.py`); both RoPE conventions tested against the
+live model (`bisect_rope.py`) — both garbage, RoPE acquitted;
+single-position forwards sane, two-position forwards garbage
+— the fault isolated to cross-position attention. A miniature
+of the forward pass (`mini_forward_test.py`) disagreed with an
+independent loop-by-loop reference; the defect was in the
+harness's attention einsums, which indexed the key/value
+tensors by the repetition axis instead of the group axis
+(`phd` instead of `pgd`) — every query head silently read the
+wrong KV head. Two axis labels. After the fix, miniature and
+reference agree to 1e-15, and the real model generates
+coherently from inside the space.
