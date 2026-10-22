@@ -1,0 +1,12 @@
+ACT 1 ù a 68.7 GB tensor, reduced through the GPU
+  logical 68.7 GB | stored 128 bytes (a rule, no blocks)
+  sum   gpu 8589895108.351080  cpu 8589895108.351094  MATCH
+  sumsq gpu 5726580427.648482  cpu 5726580427.648486  MATCH
+  streamed 68.7 GB in 16.6s; physical VRAM base 1492 MiB, peak so far 2597 MiB
+ACT 2 ù 8192x8192 matmul, implied @ implied
+  matmul in 2915.5s | max |diff| vs torch 0.00024  MATCH
+  C: logical 268 MB, stored 268 MB (real results)
+ACT 3 ù scattered real writes into a 4.3 GB tensor
+  100 scattered tiles written, saved, reopened, read back: PASS
+  Y: logical 4.3 GB | stored 419 MB
+RECEIPT: acts 1 MATCH / 2 MATCH / 3 PASS | physical VRAM peak 11833 MiB of 12282 while a 69 GB tensor was processed through exponentiated VRAM

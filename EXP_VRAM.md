@@ -63,6 +63,16 @@ same in every process that opens the space.
   (8,589,895,108.351080 vs .351094); the full tensor streamed
   through the card in 16.6 s with physical VRAM peaking at
   **2,597 MiB**.
+- **Implied @ implied matmul** (`tensor_demo.py`, Act 2;
+  full log in `tensor_demo_log.txt`): two rule-derived
+  8192×8192 tensors multiplied through the tiling engine
+  match torch (max |diff| 0.00024). It took 2,915 s —
+  exact, and slow; per-tile CPU derivation is the
+  bottleneck, the same one the device forward pass hit.
+- **Scattered writes persist** (`tensor_demo.py`, Act 3):
+  100 tiles written at scattered offsets into a 4.3 GB
+  tensor, saved, reopened and read back byte-exact —
+  419 MB stored of 4.3 GB logical.
 - **A 1.07-billion-parameter model held in EXP-VRAM and run
   through the device layer** (`exp_torch_demo.py`, log in
   `exp_torch_demo_log.txt`): W1 is 32768×32768 — 4.29 GB of
@@ -84,10 +94,9 @@ same in every process that opens the space.
   `earth_mask.npz` is binary and cannot ride this snapshot
   route; the script regenerates expectations from the mask
   file kept beside it.)
-- **`tensor_demo.py` Acts 2–3** — an 8192×8192 implied
-  matmul and scattered-write persistence. **In flight at
-  the time of this commit**; results land in their logs,
-  not in this file.
+- **A 70-billion-parameter model, run on the author's
+  machine via this method** (his report, evening of
+  2026-10-21). Details to be added when captured.
 
 ## The boundary, stated once
 
