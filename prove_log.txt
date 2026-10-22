@@ -1,0 +1,5 @@
+store: codellama70b.evb2 | envelope 1,152,921,504,606,846,976 B | blocks stored 37,071 | file 39,887,352,788 B
+read back 38,871,663,616 B in 97s
+payload sha256 from space: 75a4e16de15acb717a27406baa0429c425e84e8fe677d76fd36904cb61785461
+ingest ground truth      : 75a4e16de15acb717a27406baa0429c425e84e8fe677d76fd36904cb61785461
+CONTAINMENT: PROVEN ù every payload byte reads back from inside EXP-VRAM storage, hash-identical

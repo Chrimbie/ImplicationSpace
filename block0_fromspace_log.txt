@@ -1,0 +1,12 @@
+{
+  "backing": "EXP-VRAM BlockStore only (no GGUF reads)",
+  "elapsed_seconds": 6.202674800064415,
+  "weight_reads": 2626,
+  "weight_bytes_served": 481361920,
+  "output_sha256_float32": "ee96f50f337bc978a11c2021c2034d815ee10ca4d43ed79c9658f2d72f55d878",
+  "expected_sha256": "ee96f50f337bc978a11c2021c2034d815ee10ca4d43ed79c9658f2d72f55d878",
+  "output_finite": true,
+  "cuda_peak_allocated_mib": 12.27392578125,
+  "match": true
+}
+BLOCK 0 FROM INSIDE THE SPACE: MATCH ù identical output, weights served from EXP-VRAM storage

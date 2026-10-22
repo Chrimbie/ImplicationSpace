@@ -34,6 +34,11 @@ same in every process that opens the space.
   tiles page to the physical GPU only for the math.
 - **`exp_vram_gui.py`** — the monitor: allocated vs stored vs
   written counters for every `.evb` buffer on the machine.
+- **`exp_blockstore.py`** — the dense half of the storage:
+  written regions live as blocks on disk (append-only,
+  sparse index), unwritten regions derive byte-identically
+  to `ImpliedBuffer`. The EVB1 patch table stores a byte at
+  a time and cannot hold dense gigabytes; blocks can.
 
 ## Verified receipts (2026-10-21, RTX 4070 Ti 12 GB)
 
@@ -94,6 +99,25 @@ same in every process that opens the space.
   `earth_mask.npz` is binary and cannot ride this snapshot
   route; the script regenerates expectations from the mask
   file kept beside it.)
+- **The whole model, held inside EXP-VRAM storage — the
+  win condition** (`ingest_model.py`,
+  `prove_containment.py`, `run_block0_from_space.py`; logs
+  in `ingest_log.txt`, `prove_log.txt`,
+  `block0_fromspace_log.txt`): all 723 tensor payloads of
+  CodeLlama 70B — **38,871,663,616 bytes** — ingested into
+  a BlockStore (`codellama70b.evb2`, 37,071 blocks) inside
+  a 2^60-byte envelope, in 534 s. Containment then proven
+  independently: the whole payload read back *from the
+  store only* reproduces the ingest hash exactly
+  (sha256 `75a4e16d…`). Store file 39,887,352,788 bytes —
+  the payload plus ≈2.6% append-only overhead, reported
+  as-is. Finally block 0 was executed with every weight
+  byte served from inside the store (2,626 reads,
+  481,361,920 bytes, CUDA peak 12.27 MiB): output sha256
+  `ee96f50f…`, **identical** to the file-backed run. In
+  the author's words, the condition he set that evening:
+  "either we're holding all of the model in implicated
+  vram then we won."
 - **The first real block of a 70-billion-parameter model,
   run through logical EXP-VRAM addresses**
   (`codellama70b_expvram_block.py`, result in

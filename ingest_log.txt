@@ -1,0 +1,11 @@
+source GGUF: C:\Users\cjlad\.ollama\models\blobs\sha256-1436d66b69757a245f02d000874c670507949d11ad5c188a623652052c6aa508 (38,872,431,040 B)
+723 tensors, payload 38,871,663,616 B
+  4.0 GiB in 84s (51 MB/s)
+  8.1 GiB in 146s (59 MB/s)
+  12.1 GiB in 242s (54 MB/s)
+  16.1 GiB in 283s (61 MB/s)
+  20.2 GiB in 327s (66 MB/s)
+  24.2 GiB in 369s (70 MB/s)
+  28.2 GiB in 429s (71 MB/s)
+  32.3 GiB in 481s (72 MB/s)
+INGEST DONE: 38,871,663,616 payload bytes into the space | store file 39,887,352,788 B | payload sha256 75a4e16de15acb71... | 534s
