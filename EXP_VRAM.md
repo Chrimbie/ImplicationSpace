@@ -1,0 +1,90 @@
+# EXP-VRAM — implicated VRAM, used as VRAM
+
+Christopher's direction, in his words (2026-10-21):
+
+> "EXP-VRAM just became the vram we use instead of VRAM."
+> "I'm trying to make implicated vram into actual vram."
+> "Then I want it to run as my hardware."
+> Win condition: "either we're holding all of the model in
+> implicated vram then we won."
+
+EXP-VRAM is implication space put to work as memory: a program
+allocates space far larger than the physical card holds,
+addresses it, reads and writes it — and only the parts actually
+touched are ever stored. Untouched regions are *implied*:
+derived from their controllers on demand, byte-for-byte the
+same in every process that opens the space.
+
+## The stack
+
+- **`exp_vram.py`** — the memory itself. `ImpliedBuffer`
+  (sparse controllers + a patch table; `stored_bytes()` reports
+  honestly), `ImpliedFile` (file semantics: seek/read/write
+  anywhere in the space), `ImpliedArray` / `ImpliedMatrix`
+  (numpy-style views), and a CLI. On-disk format `EVB1`.
+- **`implied_tensor.py`** — tensors that live in the space:
+  block-stored `.itb` files plus *derived tiles* (rules:
+  `zeros`, `index_hash`, `formula_ij`). Written tiles page
+  from storage; unwritten tiles are derived on the GPU.
+  Elementwise ops, matmul, and whole-tensor reductions.
+- **`exp_torch.py`** — EXP-VRAM as a *device* for PyTorch
+  programs: an `ExpTensor` whose storage is an implied
+  tensor. Programs write ordinary tensor code
+  (`relu(x @ W1) @ W2`); allocations land in the space and
+  tiles page to the physical GPU only for the math.
+- **`exp_vram_gui.py`** — the monitor: allocated vs stored vs
+  written counters for every `.evb` buffer on the machine.
+
+## Verified receipts (2026-10-21, RTX 4070 Ti 12 GB)
+
+- **Stranger test** (`stranger_test.py`): three separate
+  processes, public API only, one 1 TB buffer — a 64 KB blob
+  written at offset 500 GB, 512 scattered single bytes, and 3
+  patched controllers all read back **byte-exact**; backing
+  file 594,537 bytes. The derived region's sha256
+  (`0582711a…`) is identical across processes *and* machines.
+- **Usage test** (`usage_test.py`): file, array, and raw
+  styles plus a child process — **10/10 pass** on two
+  machines; 8,000,000,000 logical bytes vs 990 stored.
+- **A model served through the buffer**
+  (`run_model_expvram.py`): a 17,179,869,185-parameter nominal
+  weight space (68.7 GB) behind an `ImpliedBuffer`; accuracy
+  through the buffer 0.9591, identical to direct; 2,000
+  nominal weight fetches pass.
+- **An Ollama model with EXP-VRAM long-term memory**
+  (`ollama_model_expvram.py`): qwen3-coder:30b given a 1 TB
+  `ImpliedFile` as memory. It stored a codeword at offset
+  500,000,000,000 (byte-check 37/37) and, in a fresh session
+  with no other context, read its implied memory and recalled
+  it. The 1 TB memory file is 411 bytes on disk.
+- **A 68.7 GB tensor reduced through the GPU**
+  (`tensor_demo.py`, Act 1): sum and sum-of-squares over
+  2^34 elements match an independent CPU pass
+  (8,589,895,108.351080 vs .351094); the full tensor streamed
+  through the card in 16.6 s with physical VRAM peaking at
+  **2,597 MiB**.
+
+## Also in this snapshot
+
+- **`impossible_weather.py`** — the full unit pool
+  (25,769,803,776 sets of four) as weather over real Earth
+  geography on a 24,576 × 1,048,576 sphere grid. Selftest
+  passes; running on the author's machine. (Its
+  `earth_mask.npz` is binary and cannot ride this snapshot
+  route; the script regenerates expectations from the mask
+  file kept beside it.)
+- **`tensor_demo.py` Acts 2–3 and `exp_torch_demo.py`** —
+  an 8192×8192 implied matmul, scattered-write persistence,
+  and a 1.07-billion-parameter model held in EXP-VRAM
+  (4.29 GB logical, 0 bytes stored) running a forward pass
+  through the device layer. **In flight at the time of this
+  commit**; results land in their logs, not in this file.
+
+## The boundary, stated once
+
+Programs use EXP-VRAM today through `exp_vram` /
+`exp_torch`. It is not a kernel driver and does not claim to
+be: unmodified Windows programs cannot yet allocate from it
+directly. What is proven above is the memory model itself —
+sparse, addressed, shared between processes, larger than the
+hardware, and exact.

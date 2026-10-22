@@ -1,0 +1,9 @@
+SELFTEST — weather engine, small grid
+  Dallas land: PASS
+  mid-Pacific ocean: PASS
+  Sahara land: PASS
+  mid-Atlantic ocean: PASS
+  equator T 34.5 C vs near-pole -10.8 C: PASS
+  sun longitude moves: PASS (now -165)
+  display render (128, 256, 3): PASS
+SELFTEST DONE
