@@ -29,7 +29,23 @@ Canvas 65,536 x 65,536 RGBA = 17,179,869,184 logical bytes
   presented frame came out at 974,100 bytes, exactly the
   PC frame's size. ALL PASS.
 
-## The GPU partition — built, VM-verified, phone run pending
+## The GPU partition — PC-measured; phone run pending
+
+PC measurement (i9-12900K, 24 logical cores, partition = 6
+cores = 25%; log: gpu_partition_pc_log.txt): serial one-core
+draw 81.3 s; partition draw 56.9 s — **1.43x on a quarter of
+the CPU**, presented frames byte-identical, all windows
+pixel-exact, ALL PASS. Two honest qualifications: core
+*pinning* did not take on Windows (pin_ok False — the six
+workers were separate processes, but the scheduler floated
+them; pinning verified working on Linux), and the ceiling
+here is not cores but the single writer flushing 1.7 GB of
+drawn rows to disk — the same memory-flow wall as the 70B
+inference. The partition path also writes each drawn row
+exactly once (6,645 row writes vs the serial path's 17,853),
+so its store is the lean one.
+
+## The GPU partition (original build note)
 
 `gpu_partition.py`: a quarter of the CPU's cores (cores//4,
 pinned to the performance cluster on ARM) form a tile-render
