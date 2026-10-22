@@ -1,0 +1,20 @@
+{
+  "model": "codellama:70b",
+  "backend": "real GGUF Q4_0 reads via logical EXP-VRAM adapter; CUDA tiled matvec",
+  "complete_transformer_block": true,
+  "full_model_inference": false,
+  "generated_tokens": 0,
+  "test_sequence_length": 1,
+  "test_position": 0,
+  "device": "cuda",
+  "elapsed_seconds": 4.721552999923006,
+  "logical_envelope_bytes": 1152921504606846976,
+  "actual_model_file_bytes": 38872431040,
+  "model_weight_bytes_saved": 0,
+  "weight_reads": 2626,
+  "weight_bytes_served": 481361920,
+  "output_elements": 8192,
+  "output_sha256_float32": "ee96f50f337bc978a11c2021c2034d815ee10ca4d43ed79c9658f2d72f55d878",
+  "output_finite": true,
+  "cuda_peak_allocated_mib": 12.27392578125
+}

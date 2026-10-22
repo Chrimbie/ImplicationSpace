@@ -94,9 +94,23 @@ same in every process that opens the space.
   `earth_mask.npz` is binary and cannot ride this snapshot
   route; the script regenerates expectations from the mask
   file kept beside it.)
-- **A 70-billion-parameter model, run on the author's
-  machine via this method** (his report, evening of
-  2026-10-21). Details to be added when captured.
+- **The first real block of a 70-billion-parameter model,
+  run through logical EXP-VRAM addresses**
+  (`codellama70b_expvram_block.py`, result in
+  `codellama70b_expvram_block_result.json`): CodeLlama
+  70B's actual GGUF (38,872,431,040 bytes, Q4_0) — block 0,
+  one token at position 0 — executed on the 12 GB card
+  with weights read through the adapter in 32-row tiles:
+  2,626 reads, 481,361,920 bytes served, **CUDA peak
+  12.27 MiB**, 4.72 s, finite 8192-element output
+  (sha256 `ee96f50f…`). The harness's own accounting,
+  by its author's design: the weights are the model's
+  true bytes (bytes saved by implication: 0 — the adapter
+  addresses, it does not compress), this is one complete
+  transformer block rather than full inference, and it
+  generates no tokens. Blocks 1–79 are the same code in
+  a loop; real sequences additionally need RoPE and a
+  KV cache.
 
 ## The boundary, stated once
 
