@@ -1,0 +1,22 @@
+[
+ {
+  "res": "2560x1440",
+  "frames": 128,
+  "seconds": 8.01,
+  "avg_fps": 16.0,
+  "avg_dirty_fraction": 0.443,
+  "committed_MB": 906.3,
+  "presented_MB": 906.3,
+  "store_MB": 24.1
+ },
+ {
+  "res": "1280x720",
+  "frames": 406,
+  "seconds": 8.01,
+  "avg_fps": 50.7,
+  "avg_dirty_fraction": 0.649,
+  "committed_MB": 1039.4,
+  "presented_MB": 1039.4,
+  "store_MB": 7.3
+ }
+]

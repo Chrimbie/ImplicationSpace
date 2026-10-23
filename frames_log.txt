@@ -1,0 +1,3 @@
+ingest: 120 frames in 21.5s (5.6 img/s), store 1,887,472,898 B
+playback: 120 frames in 3.7s (32.1 img/s), hash-verified 120/120
+proof sheet: C:\Users\cjlad\exp_space_run\frames_proof_sheet.png (126,193 B) from read-back frames [0, 17, 34, 51, 68, 85, 102, 119]

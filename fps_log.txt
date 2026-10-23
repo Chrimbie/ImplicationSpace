@@ -1,0 +1,7 @@
+ingest (bulk)            12.7 img/s   (4.73s for 60)
+ingest (per-frame)       11.5 img/s   (5.24s for 60)
+playback                 27.5 img/s   (2.18s for 60)
+  hash-verified      60/60 frames
+random access            34.9 img/s   (1.72s for 60)
+derived playback          1.8 img/s   (32.47s for 60)
+store on disk: 1,889,084,858 B for 120 written frames (1,769,472,000 B of pixels)
